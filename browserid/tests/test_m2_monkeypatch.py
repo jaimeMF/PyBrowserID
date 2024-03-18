@@ -62,9 +62,9 @@ class TestM2MonkeyPatch(unittest.TestCase):
                                      d_orig.pub, d_orig.priv)
         # Check that the attributes are copied across effectively.
         for nm in ("p", "q", "g", "pub"):
-            self.assertEquals(getattr(d_orig, nm), getattr(d_pub, nm))
-            self.assertEquals(getattr(d_orig, nm), getattr(d_priv, nm))
-        self.assertEquals(d_orig.priv, d_priv.priv)
+            self.assertEqual(getattr(d_orig, nm), getattr(d_pub, nm))
+            self.assertEqual(getattr(d_orig, nm), getattr(d_priv, nm))
+        self.assertEqual(d_orig.priv, d_priv.priv)
         # Check that they can all validate signatures from original key.
         r, s = d_orig.sign("helloworld")
         self.assertTrue(d_orig.verify("helloworld", r, s))

@@ -124,7 +124,7 @@ class TestLocalVerifier(unittest.TestCase, VerifierTestCases):
             warnings.simplefilter("always")
             self.verifier = LocalVerifier(["*"])
         # There should be no warning about using this verifier.
-        self.assertEquals(len(w), 0)
+        self.assertEqual(len(w), 0)
 
     @callwith(patched_supportdoc_fetching())
     def test_error_handling_in_verify_certificate_chain(self):
@@ -285,7 +285,7 @@ class TestRemoteVerifier(unittest.TestCase, VerifierTestCases):
         response_text = ('{"email": "t@m.com", "status": "okay", '
                          '"audience": "http://myfavoritebeer.org"}')
         data = self._verify(response_text=response_text)
-        self.assertEquals(data["email"], "t@m.com")
+        self.assertEqual(data["email"], "t@m.com")
 
     def test_handling_of_invalid_json_from_server(self):
         with self.assertRaises(ConnectionError):
@@ -393,11 +393,11 @@ class TestDummyVerifier(unittest.TestCase, VerifierTestCases):
         self.assertTrue(verifier.verify(assertion1))
         assertion2 = make_assertion("test@2.com", "", "2.com")
         self.assertTrue(verifier.verify(assertion2))
-        self.assertEquals(len(supportdocs.cache), 2)
+        self.assertEqual(len(supportdocs.cache), 2)
         # Hitting a third host should evict the first public key.
         assertion3 = make_assertion("test@3.com", "", "3.com")
         self.assertTrue(verifier.verify(assertion3))
-        self.assertEquals(len(supportdocs.cache), 2)
+        self.assertEqual(len(supportdocs.cache), 2)
         # Make it error out if re-fetching any keys
 
         exc = RuntimeError("key fetch disabled")
@@ -412,13 +412,13 @@ class TestDummyVerifier(unittest.TestCase, VerifierTestCases):
         # Prime the cache by verifying an assertion.
         assertion1 = make_assertion("test@1.com", "", "1.com")
         self.assertTrue(verifier.verify(assertion1))
-        self.assertEquals(len(supportdocs.cache), 1)
+        self.assertEqual(len(supportdocs.cache), 1)
         # Let that cached key expire
         time.sleep(0.1)
         # Now grab a different key; caching it should purge the expired key.
         assertion2 = make_assertion("test@2.com", "", "2.com")
         self.assertTrue(verifier.verify(assertion2))
-        self.assertEquals(len(supportdocs.cache), 1)
+        self.assertEqual(len(supportdocs.cache), 1)
         # Check that only the second entry is in cache.
 
         exc = RuntimeError("key fetch disabled")

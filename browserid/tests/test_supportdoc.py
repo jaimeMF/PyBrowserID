@@ -92,7 +92,7 @@ class TestFetchPublicKey(unittest.TestCase):
 
     def test_successful_fetch(self):
         key = self._fetch('test.com', response_text=BROWSERID_PK)
-        self.assertEquals(key, BROWSERID_PK_PY['public-key'])
+        self.assertEqual(key, BROWSERID_PK_PY['public-key'])
 
 
 class TestTrustedIssuers(unittest.TestCase):

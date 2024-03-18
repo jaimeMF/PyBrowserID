@@ -11,14 +11,14 @@ from browserid.tests.support import unittest
 class TestUtils(unittest.TestCase):
 
     def test_encode_decode_bytes(self):
-        self.assertEquals(b"HELLO", decode_bytes(encode_bytes(b"HELLO")))
-        self.assertEquals(b"HELLO", decode_bytes(encode_bytes(u("HELLO"))))
+        self.assertEqual(b"HELLO", decode_bytes(encode_bytes(b"HELLO")))
+        self.assertEqual(b"HELLO", decode_bytes(encode_bytes(u("HELLO"))))
         self.assertRaises(ValueError, decode_bytes, u("\N{SNOWMAN}"))
         self.assertRaises(ValueError, decode_bytes, "A===")
 
     def test_encode_decode_json_bytes(self):
         obj = {"hello": "world"}
-        self.assertEquals(obj, decode_json_bytes(encode_json_bytes(obj)))
+        self.assertEqual(obj, decode_json_bytes(encode_json_bytes(obj)))
         self.assertRaises(ValueError,
                           decode_json_bytes, encode_bytes("NOJSON4U"))
         self.assertRaises(ValueError,
@@ -48,8 +48,8 @@ class TestUtils(unittest.TestCase):
         6cDRGRjlUclBjNjBTRXcifQ
         """.replace(" ", "").replace("\n", "").strip()
         data = get_assertion_info(assertion)
-        self.assertEquals(data["principal"]["email"], "ryan@rfk.id.au")
-        self.assertEquals(data["audience"], "http://myfavoritebeer.org")
+        self.assertEqual(data["principal"]["email"], "ryan@rfk.id.au")
+        self.assertEqual(data["audience"], "http://myfavoritebeer.org")
         self.assertRaises(ValueError, get_assertion_info, "JUNK")
         self.assertRaises(ValueError, get_assertion_info, "X")
         self.assertRaises(ValueError, get_assertion_info, "\x00\x01\x02")
